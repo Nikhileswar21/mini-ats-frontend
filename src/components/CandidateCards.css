@@ -1,0 +1,57 @@
+.candidate-card {
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: none;
+  height: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  text-transform: lowercase;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  color: #111827 !important;
+}
+
+.card-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin-bottom: 18px;
+}
+
+.card-section {
+  margin-bottom: 18px;
+}
+
+.card-section label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #374151;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.card-section p {
+  margin: 0;
+  font-size: 16px;
+  color: #111827;
+  word-break: break-word;
+}

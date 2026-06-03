@@ -1,57 +1,55 @@
 import React from "react";
 import { Card, Row, Col, Tag } from "antd";
+import "./CandidateCards.css";
 
 export default function CandidateCards({ candidates }) {
   const getStatusColor = (status) => {
     switch (status) {
       case "Selected":
-        return "green";
+        return "#22c55e";
       case "Rejected":
-        return "red";
+        return "#ef4444";
       case "Interview":
-        return "blue";
+        return "#3b82f6";
       case "Shortlisted":
-        return "purple";
+        return "#8b5cf6";
       default:
-        return "orange";
+        return "#f59e0b";
     }
   };
 
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[20, 20]}>
       {candidates.map((candidate) => (
-        <Col
-          xs={24}
-          sm={12}
-          md={8}
-          lg={6}
-          key={candidate.key}
-        >
-          <Card
-            title={candidate.name}
-            hoverable
-          >
-            <p>
-              <strong>Email:</strong>
-              <br />
-              {candidate.email}
-            </p>
+        <Col xs={24} sm={12} md={12} lg={6} key={candidate.key}>
+          <Card className="candidate-card">
+            <div className="card-header">
+              <h3>{candidate.name}</h3>
 
-            <p>
-              <strong>Applied For:</strong>
-              <br />
-              {candidate.appliedFor}
-            </p>
+              <Tag
+                className="status-pill"
+                color={getStatusColor(candidate.status)}
+              >
+                {candidate.status.toUpperCase()}
+              </Tag>
+            </div>
 
-            <p>
-              <strong>Experience:</strong>
-              <br />
-              {candidate.experience}
-            </p>
+            <div className="card-divider"></div>
 
-            <Tag color={getStatusColor(candidate.status)}>
-              {candidate.status}
-            </Tag>
+            <div className="card-section">
+              <label>EMAIL</label>
+              <p>{candidate.email}</p>
+            </div>
+
+            <div className="card-section">
+              <label>APPLIED ROLE</label>
+              <p>{candidate.appliedFor}</p>
+            </div>
+
+            <div className="card-section">
+              <label>EXPERIENCE</label>
+              <p>{candidate.experience}</p>
+            </div>
           </Card>
         </Col>
       ))}
