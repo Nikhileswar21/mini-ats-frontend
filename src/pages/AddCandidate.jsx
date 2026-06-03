@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Select, Card, InputNumber, message } from "antd";
+import { Form, Input, Button, Select, Card, message } from "antd";
 import { useCandidates } from "../context/CandidateContext";
 
 export default function AddCandidate() {
@@ -47,16 +47,14 @@ export default function AddCandidate() {
         </Form.Item>
 
         <Form.Item
-          label="Experience (Years)"
+          label="Experience"
           name="experience"
           rules={[{ required: true }]}
         >
-          <InputNumber
-            min={0}
-            max={30}
-            style={{ width: "100%" }}
-          />
+          <Input placeholder="" />
         </Form.Item>
+
+        
 
         <Form.Item
           label="Status"

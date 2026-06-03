@@ -1,52 +1,52 @@
-import { Table, Tag } from "antd";
+import React, { useState } from "react";
+import { Segmented } from "antd";
+import {
+  BarsOutlined,
+  AppstoreOutlined,
+} from "@ant-design/icons";
+
 import { useCandidates } from "../context/CandidateContext";
+import CandidateTable from "../components/CandidateTable";
+import CandidateCards from "../components/CandidateCards";
 
 export default function Candidates() {
   const { candidates } = useCandidates();
 
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-    },
-    {
-      title: "Applied For",
-      dataIndex: "appliedFor",
-    },
-    {
-      title: "Experience",
-      dataIndex: "experience",
-      render: (value) => `${value} Years`,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      render: (status) => {
-        let color = "orange";
-
-        if (status === "Selected") color = "green";
-        if (status === "Rejected") color = "red";
-        if (status === "Interview") color = "blue";
-        if (status === "Shortlisted") color = "purple";
-
-        return <Tag color={color}>{status}</Tag>;
-      },
-    },
-  ];
+  const [view, setView] = useState("table");
 
   return (
     <div>
-      <h2>Candidates</h2>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 20,
+        }}
+      >
+        <h2>Candidates</h2>
 
-      <Table
-        columns={columns}
-        dataSource={candidates}
-        pagination={{ pageSize: 5 }}
-      />
+        <Segmented
+          value={view}
+          onChange={setView}
+          options={[
+            {
+              value: "table",
+              icon: <BarsOutlined />,
+            },
+            {
+              value: "card",
+              icon: <AppstoreOutlined />,
+            },
+          ]}
+        />
+      </div>
+
+      {view === "table" ? (
+        <CandidateTable candidates={candidates} />
+      ) : (
+        <CandidateCards candidates={candidates} />
+      )}
     </div>
   );
 }
