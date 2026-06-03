@@ -1,40 +1,78 @@
-import { Form, Input, Button, Select, Card } from "antd";
+import React from "react";
+import { Form, Input, Button, Select, Card, message } from "antd";
 import { useCandidates } from "../context/CandidateContext";
-import { useNavigate } from "react-router-dom";
+
+const { Option } = Select;
 
 export default function AddCandidate() {
   const { addCandidate } = useCandidates();
-  const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     addCandidate(values);
-    navigate("/candidates"); // redirect after adding
+
+    message.success("Candidate added successfully!");
+
+    form.resetFields();
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>Add Candidate</h2>
 
-      <Card style={{ maxWidth: 500 }}>
-        <Form layout="vertical" onFinish={onFinish}>
-          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-            <Input />
+      <Card style={{ maxWidth: 600 }}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+        >
+          <Form.Item
+            label="Candidate Name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Please enter candidate name",
+              },
+            ]}
+          >
+            <Input placeholder="Enter candidate name" />
           </Form.Item>
 
-          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
-            <Input />
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please enter email",
+              },
+              {
+                type: "email",
+                message: "Enter a valid email",
+              },
+            ]}
+          >
+            <Input placeholder="Enter email" />
           </Form.Item>
 
-          <Form.Item name="status" label="Status">
-            <Select
-              options={[
-                { value: "Applied", label: "Applied" },
-                { value: "Shortlisted", label: "Shortlisted" },
-                { value: "Interview", label: "Interview" },
-                { value: "Selected", label: "Selected" },
-                { value: "Rejected", label: "Rejected" },
-              ]}
-            />
+          <Form.Item
+            label="Status"
+            name="status"
+            rules={[
+              {
+                required: true,
+                message: "Please select status",
+              },
+            ]}
+          >
+            <Select placeholder="Select candidate status">
+              <Option value="Applied">Applied</Option>
+              <Option value="Shortlisted">Shortlisted</Option>
+              <Option value="Interview">Interview</Option>
+              <Option value="Selected">Selected</Option>
+              <Option value="Rejected">Rejected</Option>
+            </Select>
           </Form.Item>
 
           <Button type="primary" htmlType="submit" block>
