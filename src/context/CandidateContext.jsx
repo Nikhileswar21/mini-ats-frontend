@@ -3,21 +3,43 @@ import { createContext, useContext, useState } from "react";
 const CandidateContext = createContext();
 
 export function CandidateProvider({ children }) {
-  const [candidates, setCandidates] = useState([
-    
-  ]);
+  const [candidates, setCandidates] = useState([]);
 
   const addCandidate = (candidate) => {
-    const newCandidate = {
-      key: Date.now().toString(),
-      ...candidate,
-    };
+    setCandidates((prev) => [
+      ...prev,
+      {
+        key: Date.now().toString(),
+        ...candidate,
+      },
+    ]);
+  };
 
-    setCandidates([...candidates, newCandidate]);
+  const updateCandidate = (updatedCandidate) => {
+    setCandidates((prev) =>
+      prev.map((candidate) =>
+        candidate.key === updatedCandidate.key
+          ? updatedCandidate
+          : candidate
+      )
+    );
+  };
+
+  const deleteCandidate = (key) => {
+    setCandidates((prev) =>
+      prev.filter((candidate) => candidate.key !== key)
+    );
   };
 
   return (
-    <CandidateContext.Provider value={{ candidates, addCandidate }}>
+    <CandidateContext.Provider
+      value={{
+        candidates,
+        addCandidate,
+        updateCandidate,
+        deleteCandidate,
+      }}
+    >
       {children}
     </CandidateContext.Provider>
   );

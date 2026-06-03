@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Tag } from "antd";
+import Changes from "./Changes";
 
 export default function CandidateTable({ candidates }) {
   const columns = [
@@ -33,6 +34,13 @@ export default function CandidateTable({ candidates }) {
         return <Tag color={color}>{status}</Tag>;
       },
     },
+
+    {
+  title: "Actions",
+  render: (_, record) => (
+    <Changes candidate={record} />
+  ),
+}
   ];
 
   return (

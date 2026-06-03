@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Row, Col, Tag } from "antd";
 import "./CandidateCards.css";
+import Changes from "./Changes";
 
 export default function CandidateCards({ candidates }) {
   const getStatusColor = (status) => {
@@ -37,19 +38,29 @@ export default function CandidateCards({ candidates }) {
             <div className="card-divider"></div>
 
             <div className="card-section">
-              <label>EMAIL</label>
+              <label>EMAIL :</label>
               <p>{candidate.email}</p>
             </div>
 
             <div className="card-section">
-              <label>APPLIED ROLE</label>
+              <label>APPLIED ROLE :</label>
               <p>{candidate.appliedFor}</p>
             </div>
 
             <div className="card-section">
-              <label>EXPERIENCE</label>
+              <label>EXPERIENCE :</label>
               <p>{candidate.experience}</p>
             </div>
+                           <div
+                           style={{
+                           marginTop: 16,
+                           display: "flex",
+                           justifyContent: "flex-end",
+                         }}
+                         >
+                           <Changes candidate={candidate} />
+                        </div>
+            
           </Card>
         </Col>
       ))}
