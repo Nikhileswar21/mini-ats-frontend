@@ -18,7 +18,7 @@ export default function Sidebar() {
         mode="inline"
         onClick={(item) => navigate(item.key)}
         items={[
-          { key: "/", icon: <DashboardOutlined />, label: "Dashboard" },
+          { key: "/", icon: <DashboardOutlined /> , label: "Dashboard" },
           { key: "/candidates", icon: <UserOutlined />, label: "Candidates" },
           { key: "/add", icon: <PlusOutlined />, label: "Add Candidate" },
         ]}
