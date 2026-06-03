@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Segmented } from "antd";
+import ExportCandidates from "../components/ExportCandidates";
 import {
   BarsOutlined,
   AppstoreOutlined,
@@ -43,7 +44,22 @@ export default function Candidates() {
           marginBottom: 20,
         }}
       >
-        <h2>Candidates</h2>
+        <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+  }}
+>
+  <h2 style={{ margin: 0 }}>
+    Candidates
+  </h2>
+
+  <ExportCandidates
+    candidates={candidates}
+    filteredCandidates={filteredCandidates}
+  />
+</div>
 
         <Segmented
           value={view}
