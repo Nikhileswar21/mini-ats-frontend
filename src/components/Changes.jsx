@@ -4,7 +4,7 @@ import {
   Form,
   Input,
   Select,
-  Space,
+  Button,
   Popconfirm,
   message,
 } from "antd";
@@ -28,15 +28,19 @@ export default function Changes({ candidate }) {
   };
 
   const handleSave = async () => {
-    const values = await form.validateFields();
+    try {
+      const values = await form.validateFields();
 
-    updateCandidate({
-      ...candidate,
-      ...values,
-    });
+      updateCandidate({
+        ...candidate,
+        ...values,
+      });
 
-    message.success("Candidate updated successfully");
-    setOpen(false);
+      message.success("Candidate updated successfully");
+      setOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDelete = () => {
@@ -46,35 +50,45 @@ export default function Changes({ candidate }) {
 
   return (
     <>
-      <Space size="middle">
-        <EditOutlined
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: "12px",
+          marginTop: "16px",
+        }}
+      >
+        <Button
+          type="primary"
+          ghost
+          icon={<EditOutlined />}
           onClick={handleEdit}
-          style={{
-            color: "#1677ff",
-            cursor: "pointer",
-            fontSize: "18px",
-          }}
-        />
+        >
+          Edit
+        </Button>
 
         <Popconfirm
-          title="Delete Candidate?"
+          title="Delete Candidate"
+          description="Are you sure you want to delete this candidate?"
           onConfirm={handleDelete}
+          okText="Yes"
+          cancelText="No"
         >
-          <DeleteOutlined
-            style={{
-              color: "#ff4d4f",
-              cursor: "pointer",
-              fontSize: "18px",
-            }}
-          />
+          <Button
+            danger
+            icon={<DeleteOutlined />}
+          >
+            Delete
+          </Button>
         </Popconfirm>
-      </Space>
+      </div>
 
       <Modal
         title="Edit Candidate"
         open={open}
         onOk={handleSave}
         onCancel={() => setOpen(false)}
+        okText="Save Changes"
       >
         <Form
           form={form}
@@ -83,6 +97,12 @@ export default function Changes({ candidate }) {
           <Form.Item
             label="Name"
             name="name"
+            rules={[
+              {
+                required: true,
+                message: "Please enter name",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -90,6 +110,12 @@ export default function Changes({ candidate }) {
           <Form.Item
             label="Email"
             name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please enter email",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -97,6 +123,12 @@ export default function Changes({ candidate }) {
           <Form.Item
             label="Applied For"
             name="appliedFor"
+            rules={[
+              {
+                required: true,
+                message: "Please enter role",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -104,6 +136,12 @@ export default function Changes({ candidate }) {
           <Form.Item
             label="Experience"
             name="experience"
+            rules={[
+              {
+                required: true,
+                message: "Please enter experience",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -111,6 +149,12 @@ export default function Changes({ candidate }) {
           <Form.Item
             label="Status"
             name="status"
+            rules={[
+              {
+                required: true,
+                message: "Please select status",
+              },
+            ]}
           >
             <Select>
               <Select.Option value="Applied">
