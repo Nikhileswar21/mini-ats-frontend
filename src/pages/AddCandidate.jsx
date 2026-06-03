@@ -40,7 +40,7 @@ export default function AddCandidate() {
 
         <Form.Item
           label="Applied For"
-          name="appliedFor"
+          name="role"
           rules={[{ required: true }]}
         >
           <Input placeholder="Frontend Developer" />

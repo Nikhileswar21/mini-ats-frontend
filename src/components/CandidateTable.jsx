@@ -14,7 +14,7 @@ export default function CandidateTable({ candidates }) {
     },
     {
       title: "Applied For",
-      dataIndex: "appliedFor",
+      dataIndex: "role",
     },
     {
       title: "Experience",

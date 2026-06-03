@@ -122,7 +122,7 @@ export default function Changes({ candidate }) {
 
           <Form.Item
             label="Applied For"
-            name="appliedFor"
+            name="role"
             rules={[
               {
                 required: true,

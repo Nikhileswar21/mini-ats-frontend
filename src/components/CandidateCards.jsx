@@ -44,7 +44,7 @@ export default function CandidateCards({ candidates }) {
 
             <div className="card-section">
               <label>APPLIED ROLE :</label>
-              <p>{candidate.appliedFor}</p>
+              <p>{candidate.role}</p>
             </div>
 
             <div className="card-section">
