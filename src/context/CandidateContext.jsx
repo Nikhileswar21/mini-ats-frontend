@@ -49,6 +49,18 @@ export function CandidateProvider({ children }) {
     }
   };
 
+  const removeAllCandidates = async () => {
+  try {
+    await deleteAllCandidates();
+
+    setCandidates([]); // immediately clear UI
+
+    await fetchCandidates();
+  } catch (error) {
+    console.error("Error deleting all candidates:", error);
+  }
+};
+
   const removeCandidate = async (id) => {
     try {
       await deleteCandidate(id);
@@ -58,14 +70,7 @@ export function CandidateProvider({ children }) {
     }
   };
 
-  const removeAllCandidates = async () => {
-    try {
-      await deleteAllCandidates();
-      fetchCandidates();
-    } catch (error) {
-      console.error("Error deleting all candidates:", error);
-    }
-  };
+  
 
   return (
     <CandidateContext.Provider
