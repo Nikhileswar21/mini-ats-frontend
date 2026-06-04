@@ -55,27 +55,38 @@ export default function Candidates() {
     Candidates
   </h2>
 
+  
+</div>
+      <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "12px", // change this value to control spacing
+  }}
+>
   <ExportCandidates
     candidates={candidates}
     filteredCandidates={filteredCandidates}
   />
-</div>
 
-        <Segmented
-          value={view}
-          onChange={setView}
-          options={[
-            {
-              value: "table",
-              icon: <BarsOutlined />,
-            },
-            {
-              value: "card",
-              icon: <AppstoreOutlined />,
-            },
-          ]}
-        />
+  <Segmented
+    value={view}
+    onChange={setView}
+    options={[
+      {
+        value: "table",
+        icon: <BarsOutlined />,
+      },
+      {
+        value: "card",
+        icon: <AppstoreOutlined />,
+      },
+    ]}
+  />
+</div>
+        
       </div>
+      
 
       <CandidateFilters
         searchText={searchText}
@@ -83,12 +94,14 @@ export default function Candidates() {
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
       />
+      
 
       {view === "table" ? (
         <CandidateTable candidates={filteredCandidates} />
       ) : (
         <CandidateCards candidates={filteredCandidates} />
       )}
+      
     </div>
   );
 }
