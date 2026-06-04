@@ -17,7 +17,7 @@ import {
 import { useCandidates } from "../context/CandidateContext";
 
 export default function Changes({ candidate }) {
-  const { updateCandidate, deleteCandidate } = useCandidates();
+  const { editCandidate, removeCandidate } = useCandidates();
 
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
@@ -31,8 +31,7 @@ export default function Changes({ candidate }) {
     try {
       const values = await form.validateFields();
 
-      updateCandidate({
-        ...candidate,
+      editCandidate(candidate._id, {
         ...values,
       });
 
@@ -44,7 +43,7 @@ export default function Changes({ candidate }) {
   };
 
   const handleDelete = () => {
-    deleteCandidate(candidate.key);
+    removeCandidate(candidate._id);
     message.success("Candidate deleted successfully");
   };
 

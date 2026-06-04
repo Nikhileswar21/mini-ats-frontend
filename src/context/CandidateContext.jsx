@@ -1,34 +1,48 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
+
+import {
+  getCandidates,
+  createCandidate,
+  updateCandidate,
+  deleteCandidate,
+} from "../service/candidateApi";
 
 const CandidateContext = createContext();
 
 export function CandidateProvider({ children }) {
   const [candidates, setCandidates] = useState([]);
 
-  const addCandidate = (candidate) => {
-    setCandidates((prev) => [
-      ...prev,
-      {
-        key: Date.now().toString(),
-        ...candidate,
-      },
-    ]);
+  const fetchCandidates = async () => {
+    const res = await getCandidates();
+
+    setCandidates(res.data.candidate);
   };
 
-  const updateCandidate = (updatedCandidate) => {
-    setCandidates((prev) =>
-      prev.map((candidate) =>
-        candidate.key === updatedCandidate.key
-          ? updatedCandidate
-          : candidate
-      )
-    );
+  useEffect(() => {
+    fetchCandidates();
+  }, []);
+
+  const addCandidate = async (candidate) => {
+    await createCandidate(candidate);
+
+    fetchCandidates();
   };
 
-  const deleteCandidate = (key) => {
-    setCandidates((prev) =>
-      prev.filter((candidate) => candidate.key !== key)
-    );
+  const editCandidate = async (id, data) => {
+    await updateCandidate(id, data);
+
+    fetchCandidates();
+  };
+
+  const removeCandidate = async (id) => {
+    await deleteCandidate(id);
+
+    fetchCandidates();
   };
 
   return (
@@ -36,8 +50,9 @@ export function CandidateProvider({ children }) {
       value={{
         candidates,
         addCandidate,
-        updateCandidate,
-        deleteCandidate,
+        editCandidate,
+        removeCandidate,
+        fetchCandidates,
       }}
     >
       {children}
@@ -45,4 +60,5 @@ export function CandidateProvider({ children }) {
   );
 }
 
-export const useCandidates = () => useContext(CandidateContext);
+export const useCandidates = () =>
+  useContext(CandidateContext);
