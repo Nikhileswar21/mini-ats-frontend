@@ -95,7 +95,14 @@ export default function Candidates() {
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
       />
-   <DeleteAllCandidates />
+     <div
+  style={{
+    marginTop: "10px",
+    marginBottom: "20px",
+  }}
+>
+  <DeleteAllCandidates />
+</div>
       
 
       {view === "table" ? (
