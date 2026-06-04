@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Segmented } from "antd";
 import ExportCandidates from "../components/ExportCandidates";
+import { useSearchParams } from "react-router-dom";
 import {
   BarsOutlined,
   AppstoreOutlined,
@@ -13,12 +14,17 @@ import CandidateCards from "../components/CandidateCards";
 import CandidateFilters from "../components/CandidateFilters";
 import DeleteAllCandidates from "../components/DeleteAllCandidates";
 
+
 export default function Candidates() {
   const { candidates } = useCandidates();
 
   const [view, setView] = useState("table");
   const [searchText, setSearchText] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+ const [searchParams] = useSearchParams();
+
+const [statusFilter, setStatusFilter] = useState(
+  searchParams.get("status") || ""
+);
 
   const filteredCandidates = candidates.filter((candidate) => {
     const matchesSearch =
@@ -62,7 +68,7 @@ export default function Candidates() {
   style={{
     display: "flex",
     alignItems: "center",
-    gap: "12px", // change this value to control spacing
+    gap: "12px", 
   }}
 >
   <ExportCandidates

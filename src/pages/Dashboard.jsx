@@ -1,8 +1,10 @@
 import { Card, Row, Col } from "antd";
 import { useCandidates } from "../context/CandidateContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const { candidates } = useCandidates();
+  const navigate = useNavigate();
 
   const totalCandidates = candidates.length;
 
@@ -27,13 +29,45 @@ export default function Dashboard() {
   ).length;
 
   const stats = [
-    { title: "Total Candidates", value: totalCandidates },
-    { title: "Applied", value: applied },
-    { title: "Shortlisted", value: shortlisted },
-    { title: "Interview Scheduled", value: interviewScheduled },
-    { title: "Selected", value: selected },
-    { title: "Rejected", value: rejected },
+    {
+      title: "Total Candidates",
+      value: totalCandidates,
+      status: "",
+    },
+    {
+      title: "Applied",
+      value: applied,
+      status: "Applied",
+    },
+    {
+      title: "Shortlisted",
+      value: shortlisted,
+      status: "Shortlisted",
+    },
+    {
+      title: "Interview Scheduled",
+      value: interviewScheduled,
+      status: "Interview",
+    },
+    {
+      title: "Selected",
+      value: selected,
+      status: "Selected",
+    },
+    {
+      title: "Rejected",
+      value: rejected,
+      status: "Rejected",
+    },
   ];
+
+  const handleCardClick = (status) => {
+    if (status) {
+      navigate(`/candidates?status=${status}`);
+    } else {
+      navigate("/candidates");
+    }
+  };
 
   return (
     <div>
@@ -42,7 +76,15 @@ export default function Dashboard() {
       <Row gutter={[16, 16]}>
         {stats.map((item) => (
           <Col xs={24} sm={12} md={8} key={item.title}>
-            <Card>
+            <Card
+              hoverable
+              onClick={() =>
+                handleCardClick(item.status)
+              }
+              style={{
+                cursor: "pointer",
+              }}
+            >
               <h3>{item.title}</h3>
               <h1>{item.value}</h1>
             </Card>
