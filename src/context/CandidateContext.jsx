@@ -10,6 +10,7 @@ import {
   createCandidate,
   updateCandidate,
   deleteCandidate,
+  deleteAllCandidates,
 } from "../service/candidateApi";
 
 const CandidateContext = createContext();
@@ -18,9 +19,12 @@ export function CandidateProvider({ children }) {
   const [candidates, setCandidates] = useState([]);
 
   const fetchCandidates = async () => {
-    const res = await getCandidates();
-
-    setCandidates(res.data.candidate);
+    try {
+      const res = await getCandidates();
+      setCandidates(res.data.candidate);
+    } catch (error) {
+      console.error("Error fetching candidates:", error);
+    }
   };
 
   useEffect(() => {
@@ -28,21 +32,39 @@ export function CandidateProvider({ children }) {
   }, []);
 
   const addCandidate = async (candidate) => {
-    await createCandidate(candidate);
-
-    fetchCandidates();
+    try {
+      await createCandidate(candidate);
+      fetchCandidates();
+    } catch (error) {
+      console.error("Error adding candidate:", error);
+    }
   };
 
   const editCandidate = async (id, data) => {
-    await updateCandidate(id, data);
-
-    fetchCandidates();
+    try {
+      await updateCandidate(id, data);
+      fetchCandidates();
+    } catch (error) {
+      console.error("Error updating candidate:", error);
+    }
   };
 
   const removeCandidate = async (id) => {
-    await deleteCandidate(id);
+    try {
+      await deleteCandidate(id);
+      fetchCandidates();
+    } catch (error) {
+      console.error("Error deleting candidate:", error);
+    }
+  };
 
-    fetchCandidates();
+  const removeAllCandidates = async () => {
+    try {
+      await deleteAllCandidates();
+      fetchCandidates();
+    } catch (error) {
+      console.error("Error deleting all candidates:", error);
+    }
   };
 
   return (
@@ -52,6 +74,7 @@ export function CandidateProvider({ children }) {
         addCandidate,
         editCandidate,
         removeCandidate,
+        removeAllCandidates,
         fetchCandidates,
       }}
     >

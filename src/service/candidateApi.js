@@ -11,5 +11,9 @@ export const createCandidate = (data) =>
 export const updateCandidate = (id, data) =>
   axios.put(`${API_URL}/${id}`, data);
 
+export const deleteAllCandidates = () =>
+  axios.delete("http://localhost:8000/candidates/delete-all");
+
 export const deleteCandidate = (id) =>
   axios.delete(`${API_URL}/${id}`);
+

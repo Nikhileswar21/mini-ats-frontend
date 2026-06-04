@@ -11,6 +11,7 @@ import { useCandidates } from "../context/CandidateContext";
 import CandidateTable from "../components/CandidateTable";
 import CandidateCards from "../components/CandidateCards";
 import CandidateFilters from "../components/CandidateFilters";
+import DeleteAllCandidates from "../components/DeleteAllCandidates";
 
 export default function Candidates() {
   const { candidates } = useCandidates();
@@ -94,6 +95,7 @@ export default function Candidates() {
         statusFilter={statusFilter}
         setStatusFilter={setStatusFilter}
       />
+   <DeleteAllCandidates />
       
 
       {view === "table" ? (
