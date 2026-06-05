@@ -10,7 +10,7 @@ export default function Sidebar() {
   return (
     <Sider>
       <div style={{ color: "white", padding: "16px", fontSize: 18 }}>
-        Navigation
+        Nav Panel
       </div>
 
       <Menu

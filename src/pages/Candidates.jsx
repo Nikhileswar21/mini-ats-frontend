@@ -33,6 +33,9 @@ const [statusFilter, setStatusFilter] = useState(
         .includes(searchText.toLowerCase()) ||
       candidate.email
         .toLowerCase()
+        .includes(searchText.toLowerCase()) ||
+        candidate.role
+        .toLowerCase()
         .includes(searchText.toLowerCase());
 
     const matchesStatus =
